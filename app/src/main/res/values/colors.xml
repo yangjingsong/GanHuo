@@ -6,4 +6,7 @@
 
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
+
+    <color name="nightBackground">#263238</color>
+    <color name="dayBackground">#ffffff</color>
 </resources>

@@ -1,5 +1,6 @@
 package com.yjs.ganhuo.net;
 
+import com.yjs.ganhuo.bean.ZhiHuPicture;
 import com.yjs.ganhuo.bean.ZhihuDailyEntity;
 import com.yjs.ganhuo.bean.ZhihuDetail;
 
@@ -17,5 +18,7 @@ public interface ZhihuApi {
 
     @GET("{id}")
     Observable<ZhihuDetail> getZhihuDetail(@Path("id")int id);
+
+
 
 }

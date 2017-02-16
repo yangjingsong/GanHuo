@@ -198,7 +198,7 @@ public class BigPictureActivity extends BaseActivity {
 
 
     @TargetApi(Build.VERSION_CODES.CUPCAKE)
-    class SaveBitmapTask extends AsyncTask<Bitmap,Void,Void>{
+    static class SaveBitmapTask extends AsyncTask<Bitmap,Void,Void>{
 
         WeakReference<Context> weakReference;
 
@@ -230,7 +230,7 @@ public class BigPictureActivity extends BaseActivity {
         }
 
         public void saveImageToExternal(String imgName, Bitmap bm, Context context) throws IOException {
-//Create Path to save Image
+            //Create Path to save Image
             File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES + "ganhuo"); //Creates app specific folder
             path.mkdirs();
             File imageFile = new File(path, imgName + ".png"); // Imagename.png
@@ -256,7 +256,7 @@ public class BigPictureActivity extends BaseActivity {
 
 
     public void saveImageToExternal(String imgName, Bitmap bm, Context context) throws IOException {
-//Create Path to save Image
+        //Create Path to save Image
         File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES + "ganhuo"); //Creates app specific folder
         path.mkdirs();
         File imageFile = new File(path, imgName + ".png"); // Imagename.png

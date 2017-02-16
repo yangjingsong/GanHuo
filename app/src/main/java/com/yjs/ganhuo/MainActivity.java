@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -19,6 +20,8 @@ import com.yjs.ganhuo.fragment.picture.PictureFragment;
 import com.yjs.ganhuo.fragment.tabFragment.TabFragmentView;
 import com.yjs.ganhuo.fragment.zhihu.ZhihuFragment;
 import com.yjs.ganhuo.fragment.tabFragment.TabViewPagerFragment;
+import com.yjs.ganhuo.view.changeSkin.ChangeModeController;
+import com.yjs.ganhuo.view.changeSkin.ChangeModeHelper;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -37,6 +40,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        ChangeModeController.getInstance().init(this,R.attr.class).setTheme(this,R.style.DayTheme,R.style.NightTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -73,6 +78,12 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        if(ChangeModeHelper.getChangeMode(this) == ChangeModeHelper.MODE_DAY){
+            menu.getItem(0).setTitle("夜间模式");
+        }else {
+            menu.getItem(0).setTitle("日间模式");
+        }
+
         return true;
     }
 
@@ -83,8 +94,21 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        TypedValue attrTypedValue;
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            if(ChangeModeHelper.getChangeMode(this) == ChangeModeHelper.MODE_DAY){
+                ChangeModeController.changeNight(this, R.style.NightTheme);
+                attrTypedValue = ChangeModeController.getAttrTypedValue(this, R.attr.zhihuItemBackground);
+                zhihuFragment.mRecyclerView.setBackgroundColor(getResources().getColor(attrTypedValue.resourceId));
+                item.setTitle("日间模式");
+            }else {
+                ChangeModeController.changeDay(this, R.style.DayTheme);
+                attrTypedValue = ChangeModeController.getAttrTypedValue(this, R.attr.zhihuItemBackground);
+                zhihuFragment.mRecyclerView.setBackgroundColor(getResources().getColor(attrTypedValue.resourceId));
+                item.setTitle("夜间模式");
+            }
+
             return true;
         }
 
